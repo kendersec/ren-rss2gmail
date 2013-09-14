@@ -26,6 +26,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 import feedparser
 import json
+import sys
 import os
 import os.path
 import logging
@@ -42,8 +43,13 @@ else:
     logging_level = logging.INFO
 
 # basic config
+if len(sys.argv) > 1 and os.path.isdir(sys.argv[1]):
+    WORKING_DIR = sys.argv[1]
+else:
+    WORKING_DIR = os.getenv("HOME")
+
 FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(filename=os.getenv("HOME") + "/ren-rss2gmail.log",
+logging.basicConfig(filename=WORKING_DIR + "/ren-rss2gmail.log",
                     level=logging_level,
                     format=FORMAT)
 
@@ -174,7 +180,7 @@ def parse_feed(url, last_parse_time):
 
 def main():
     # check if configuration file exists
-    config_file_path = os.getenv("HOME") + "/.ren-rss2gmail"
+    config_file_path = WORKING_DIR + "/.ren-rss2gmail"
 
     if not os.path.isfile(config_file_path):
         logger.error("Cannot find " + config_file_path)
