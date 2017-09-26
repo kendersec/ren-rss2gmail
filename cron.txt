@@ -1,0 +1,1 @@
+0 * * * * python /opt/rss2gmail/ren-rss2gmail.py /app-data
