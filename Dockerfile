@@ -1,8 +1,9 @@
 FROM alpine:3.6
 LABEL maintainer David Martinez <kendersec@gmail.com>
 
-RUN apk -v --update add bash python2 wget && \
+RUN apk -v --update add bash python2 wget ca-certificates && \
     rm /var/cache/apk/* && \
+    update-ca-certificates && \
     python -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip install --upgrade pip setuptools feedparser && \
