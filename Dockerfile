@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.12
 LABEL maintainer David Martinez <kendersec@gmail.com>
 
 RUN apk -v --update add bash python2 wget ca-certificates && \
@@ -16,6 +16,7 @@ RUN GOCROND_VERSION=0.6.1 &&\
 RUN rm /etc/crontabs/root
 
 COPY . /opt/rss2gmail
+RUN chmod 600 /opt/rss2gmail/cron.txt
 
 RUN chmod a+x /opt/rss2gmail/ren-rss2gmail.py
 
